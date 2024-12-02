@@ -54,4 +54,24 @@ const sr = ScrollReveal({
 sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text,.skills__img',{}); 
 sr.reveal('.home__img, .about__subtitle, .about__text',{delay: 400}); 
 sr.reveal('.home__social-icon',{ interval: 200}); 
-sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200}); 
+sr.reveal('.skills__data, .work__img, .contact__input,.skills__img',{interval: 200}); 
+
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    // Show or hide the button based on scroll position
+    window.onscroll = function() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollToTopBtn.classList.add('show'); // Show the button
+        } else {
+            scrollToTopBtn.classList.remove('show'); // Hide the button
+        }
+    };
+
+    // Scroll smoothly to the top when the button is clicked
+    scrollToTopBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scrolling
+        });
+    });
