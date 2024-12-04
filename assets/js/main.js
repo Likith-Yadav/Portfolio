@@ -75,3 +75,15 @@ const scrollToTopBtn = document.getElementById('scrollToTop');
             behavior: 'smooth' // Smooth scrolling
         });
     });
+
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    
+    // Add a slight artificial delay to enhance the loading experience
+    setTimeout(() => {
+        preloader.style.opacity = '0'; // Fade out effect
+        setTimeout(() => {
+            preloader.style.display = 'none'; // Remove preloader from DOM
+        }, 500); // Ensure this matches the CSS transition duration
+    }, 1500); // Delay of 1.5 seconds before starting the fade-out
+});
