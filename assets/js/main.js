@@ -87,3 +87,71 @@ window.addEventListener('load', () => {
         }, 500); // Ensure this matches the CSS transition duration
     }, 1500); // Delay of 1.5 seconds before starting the fade-out
 });
+
+const themeToggle = document.getElementById('theme-toggle');
+const sunIcon = document.getElementById('sun-icon');
+const moonIcon = document.getElementById('moon-icon');
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+
+    // Toggle icons
+    if (document.body.classList.contains('dark-mode')) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+    }
+});
+
+// Set initial theme based on user preference or default to light mode
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add('dark-mode');
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+} else {
+    document.body.classList.add('light-mode');
+}
+
+const musicToggle = document.getElementById('music-toggle');
+const playIcon = document.getElementById('play-icon');
+const pauseIcon = document.getElementById('pause-icon');
+
+// Create an audio element
+const audio = new Audio('music.mp3'); // Replace with the path to your audio file
+
+// Function to play audio
+const playAudio = () => {
+    audio.play().then(() => {
+        playIcon.style.display = 'none'; // Hide play icon since audio is playing
+        pauseIcon.style.display = 'block'; // Show pause icon
+    }).catch(error => {
+        console.log("Audio playback failed or is blocked: ", error);
+    });
+};
+
+// Auto-play audio on page load
+window.addEventListener('load', () => {
+    playAudio(); // Attempt to play audio
+});
+
+// Toggle play/pause on button click
+musicToggle.addEventListener('click', () => {
+    if (audio.paused) {
+        playAudio(); // Play audio if paused
+    } else {
+        audio.pause(); // Pause audio
+        playIcon.style.display = 'block'; // Show play icon
+        pauseIcon.style.display = 'none'; // Hide pause icon
+    }
+});
+
+// Optional: Mute/unmute functionality on right-click
+let isMuted = false;
+musicToggle.addEventListener('contextmenu', (event) => {
+    event.preventDefault(); // Prevent the default context menu
+    isMuted = !isMuted; // Toggle mute state
+    audio.muted = isMuted; // Mute or unmute the audio
+});
